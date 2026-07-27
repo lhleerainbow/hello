@@ -1,0 +1,44 @@
+name: Build Electron App
+
+# 当推送到 main 分支时触发（可根据需要修改为 push 或 workflow_dispatch）
+on:
+  # 允许手动触发
+  workflow_dispatch:
+
+jobs:
+  build:
+    # 使用矩阵在三个平台同时构建
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        # 构建平台 只构建 windows
+        os: [windows-latest]
+
+    steps:
+      # 1. 拉取代码
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 2. 安装 Node.js（指定版本）
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 25
+          cache: 'npm'
+
+      # 3. 安装依赖
+      - name: Install dependencies
+        run: npm install
+
+      # 4. 运行 Electron Forge 打包（生成对应平台的安装包）
+      - name: Make installers
+        run: npm run make
+        # 如果你的 forge 配置中需要环境变量，可以在此设置
+
+      # 5. 上传产物到 GitHub Actions 的 Artifacts
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.os }}-installer
+          path: out/make/**/*   # Forge 默认输出到 out/make/ 下
+          if-no-files-found: error
