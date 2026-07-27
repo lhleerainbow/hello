@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self'"
+    />
+    <meta
+      http-equiv="X-Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self'"
+    />
+    <title>TCP客户端</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div class="menu-left">
+      <div class="menu-title">菜单</div>
+      <div class="menu-item active">TCP客户端</div>
+    </div>
+    <div class="client-list">
+      <div class="client-list-header">客户端列表</div>
+      <div class="client-list-content" id="clientList">
+      </div>
+      <div class="client-list-footer">
+        <button class="btn-add" id="btnAdd">+</button>
+        <button class="btn-remove" id="btnRemove">-</button>
+      </div>
+    </div>
+    <div class="content-area">
+      <div class="content-top">
+      <div class="client-info">
+        <div class="client-name">
+          <span class="label">当前客户端：</span>
+          <span class="value" id="currentClient">未选择</span>
+        </div>
+        <div class="connection-status">
+          <span class="status-dot offline" id="statusDot"></span>
+          <span class="status-text" id="statusText">未连接</span>
+        </div>
+      </div>
+      <div class="client-actions">
+        <button class="btn-action btn-edit" id="btnEdit">编辑</button>
+        <button class="btn-action btn-connect" id="btnConnect">连接</button>
+        <button class="btn-action btn-clear" id="btnClear">清空消息</button>
+      </div>
+    </div>
+      <div class="content-middle" id="chatContent">
+      </div>
+      <div class="content-bottom">
+        <div class="hex-input-wrapper">
+          <input type="text" class="hex-input" id="hexInput" placeholder="输入16进制内容..." />
+          <span class="hex-display" id="hexDisplay">等待输入...</span>
+        </div>
+        <button class="btn-send" id="btnSend">发送</button>
+      </div>
+    </div>
+    <div class="modal-overlay" id="addModal">
+      <div class="modal">
+        <div class="modal-header">
+          <span class="modal-title">添加配置</span>
+          <button class="modal-close" id="closeAddModal">×</button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label>备注</label>
+            <input type="text" class="form-input" id="inputRemark" placeholder="请输入备注" />
+          </div>
+          <div class="form-group">
+            <label>主机地址</label>
+            <input type="text" class="form-input" id="inputHost" placeholder="请输入主机地址" />
+          </div>
+          <div class="form-group">
+            <label>端口</label>
+            <input type="number" class="form-input" id="inputPort" placeholder="请输入端口" />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn-cancel" id="btnCancel">取消</button>
+          <button class="btn-save" id="btnSave">保存</button>
+        </div>
+      </div>
+    </div>
+    <div class="modal-overlay" id="deleteModal">
+      <div class="modal">
+        <div class="modal-header">
+          <span class="modal-title">确认删除</span>
+          <button class="modal-close" id="closeDeleteModal">×</button>
+        </div>
+        <div class="modal-body">
+          <p id="deleteMessage">确定要删除该客户端吗？</p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn-cancel" id="btnDeleteCancel">取消</button>
+          <button class="btn-delete" id="btnDeleteConfirm">删除</button>
+        </div>
+      </div>
+    </div>
+    <script src="js/index.js"></script>
+  </body>
+</html>
