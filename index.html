@@ -16,9 +16,10 @@
   <body>
     <div class="menu-left">
       <div class="menu-title">菜单</div>
-      <div class="menu-item active">TCP客户端</div>
+      <div class="menu-item active" data-menu="tcp">TCP客户端</div>
+      <div class="menu-item" data-menu="tools">工具</div>
     </div>
-    <div class="client-list">
+    <div class="client-list" id="clientListPanel">
       <div class="client-list-header">客户端列表</div>
       <div class="client-list-content" id="clientList">
       </div>
@@ -27,7 +28,12 @@
         <button class="btn-remove" id="btnRemove">-</button>
       </div>
     </div>
-    <div class="content-area">
+    <div class="tools-list" id="toolsListPanel" style="display: none;">
+      <div class="tools-list-header">工具列表</div>
+      <div class="tools-list-content" id="toolsList">
+      </div>
+    </div>
+    <div class="content-area" id="tcpContent">
       <div class="content-top">
       <div class="client-info">
         <div class="client-name">
@@ -53,6 +59,25 @@
           <span class="hex-display" id="hexDisplay">等待输入...</span>
         </div>
         <button class="btn-send" id="btnSend">发送</button>
+      </div>
+    </div>
+    <div class="content-area tools-content" id="toolsContent" style="display: none;">
+      <div class="pdf-merge-container" id="pdfMergeContainer" style="display: none;">
+        <div class="pdf-merge-left">
+          <div class="pdf-merge-header">上传PDF文件</div>
+          <div class="pdf-file-list" id="pdfFileList"></div>
+          <button class="btn-add-pdf" id="btnAddPdf">+ 添加PDF</button>
+          <button class="btn-merge" id="btnMerge">合并</button>
+        </div>
+        <div class="pdf-merge-right">
+          <div class="pdf-merge-header">合并结果</div>
+          <div class="pdf-result" id="pdfResult">
+            <div class="pdf-result-empty">等待合并</div>
+          </div>
+        </div>
+      </div>
+      <div class="tool-empty" id="toolEmpty" style="display: none;">
+        请选择一个工具
       </div>
     </div>
     <div class="modal-overlay" id="addModal">
