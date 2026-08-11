@@ -65,9 +65,16 @@
       <div class="pdf-merge-container" id="pdfMergeContainer" style="display: none;">
         <div class="pdf-merge-left">
           <div class="pdf-merge-header">上传PDF文件</div>
-          <div class="pdf-file-list" id="pdfFileList"></div>
-          <button class="btn-add-pdf" id="btnAddPdf">+ 添加PDF</button>
-          <button class="btn-merge" id="btnMerge">合并</button>
+          <div class="pdf-drop-zone" id="pdfDropZone">
+            <button class="btn-add-pdf" id="btnAddPdf">+ 拖拽PDF文件到此处 或 点击添加</button>
+          </div>
+          <div class="pdf-files-section">
+            <div class="pdf-files-title">已上传文件（<span id="pdfFileCount">0</span>）</div>
+            <div class="pdf-file-list" id="pdfFileList"></div>
+          </div>
+          <div class="pdf-merge-actions">
+            <button class="btn-merge" id="btnMerge">合并</button>
+          </div>
         </div>
         <div class="pdf-merge-right">
           <div class="pdf-merge-header">合并结果</div>

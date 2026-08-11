@@ -219,7 +219,46 @@ body {
 .pdf-file-list {
   flex: 1;
   overflow-y: auto;
+  margin-bottom: 0;
+}
+
+.pdf-drop-zone {
+  width: 100%;
   margin-bottom: 16px;
+  border-radius: 8px;
+  border: 2px dashed #bdc3c7;
+  background-color: #fafbfc;
+  padding: 12px;
+  transition: all 0.3s ease;
+}
+
+.pdf-drop-zone.drag-over {
+  border-color: #3498db;
+  background-color: #eaf2f8;
+}
+
+.pdf-files-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  margin-bottom: 16px;
+  padding: 12px;
+  background-color: #fafbfc;
+  border-radius: 8px;
+  border: 1px solid #ecf0f1;
+}
+
+.pdf-files-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #7f8c8d;
+  margin-bottom: 10px;
+  flex-shrink: 0;
+}
+
+.pdf-merge-actions {
+  flex-shrink: 0;
 }
 
 .pdf-file-item {
@@ -262,22 +301,41 @@ body {
 .btn-add-pdf {
   width: 100%;
   padding: 10px;
-  border: 2px dashed #3498db;
+  border: none;
   border-radius: 6px;
   font-size: 14px;
   cursor: pointer;
-  background-color: white;
-  color: #3498db;
-  margin-bottom: 10px;
+  background-color: #3498db;
+  color: white;
+  margin-bottom: 0;
   transition: all 0.3s ease;
 }
 
 .btn-add-pdf:hover {
-  background-color: #eaf2f8;
+  background-color: #2980b9;
 }
 
 .btn-add-pdf.hidden {
   display: none;
+}
+
+/* 自定义滚动条 */
+.pdf-file-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.pdf-file-list::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.pdf-file-list::-webkit-scrollbar-thumb {
+  background: #bdc3c7;
+  border-radius: 3px;
+}
+
+.pdf-file-list::-webkit-scrollbar-thumb:hover {
+  background: #95a5a6;
 }
 
 .btn-merge {

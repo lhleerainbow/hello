@@ -11,7 +11,6 @@ const tools = [
 ];
 
 let pdfFiles = [];
-const MAX_PDF_FILES = 10;
 let lastMergedPdfBytes = null;
 let lastMergedFileName = '';
 
@@ -34,6 +33,8 @@ const pdfFileList = document.getElementById('pdfFileList');
 const btnAddPdf = document.getElementById('btnAddPdf');
 const btnMerge = document.getElementById('btnMerge');
 const pdfResult = document.getElementById('pdfResult');
+const pdfDropZone = document.getElementById('pdfDropZone');
+const pdfFileCount = document.getElementById('pdfFileCount');
 
 const clientList = document.getElementById('clientList');
 const btnAdd = document.getElementById('btnAdd');
@@ -151,15 +152,15 @@ function renderPdfFiles() {
     item.appendChild(removeBtn);
     pdfFileList.appendChild(item);
   });
+  if (pdfFileCount) {
+    pdfFileCount.textContent = pdfFiles.length;
+  }
   updateAddPdfButton();
 }
 
 function updateAddPdfButton() {
-  if (pdfFiles.length >= MAX_PDF_FILES) {
-    btnAddPdf.classList.add('hidden');
-  } else {
-    btnAddPdf.classList.remove('hidden');
-  }
+  btnAddPdf.classList.remove('hidden');
+  pdfDropZone.style.display = 'block';
 }
 
 function removePdfFile(index) {
@@ -167,17 +168,47 @@ function removePdfFile(index) {
   renderPdfFiles();
 }
 
-function handleFileSelect(event) {
-  const files = Array.from(event.target.files);
-  
+function addPdfFiles(files) {
+  let added = 0;
   files.forEach(file => {
-    if (file.type === 'application/pdf' && pdfFiles.length < MAX_PDF_FILES) {
+    if (file.type === 'application/pdf') {
       pdfFiles.push(file);
+      added++;
     }
   });
-  
-  renderPdfFiles();
+  if (added > 0) {
+    renderPdfFiles();
+  }
+  return added;
+}
+
+function handleFileSelect(event) {
+  const files = Array.from(event.target.files);
+  addPdfFiles(files);
   event.target.remove();
+}
+
+function handleDragOver(event) {
+  event.preventDefault();
+  event.stopPropagation();
+  pdfDropZone.classList.add('drag-over');
+}
+
+function handleDragLeave(event) {
+  event.preventDefault();
+  event.stopPropagation();
+  pdfDropZone.classList.remove('drag-over');
+}
+
+function handleDrop(event) {
+  event.preventDefault();
+  event.stopPropagation();
+  pdfDropZone.classList.remove('drag-over');
+  
+  if (event.dataTransfer && event.dataTransfer.files) {
+    const files = Array.from(event.dataTransfer.files);
+    addPdfFiles(files);
+  }
 }
 
 async function mergePdfs() {
@@ -583,3 +614,10 @@ btnAddPdf.addEventListener('click', () => {
   fileInput.click();
 });
 btnMerge.addEventListener('click', mergePdfs);
+
+if (pdfDropZone) {
+  pdfDropZone.addEventListener('dragover', handleDragOver);
+  pdfDropZone.addEventListener('dragenter', handleDragOver);
+  pdfDropZone.addEventListener('dragleave', handleDragLeave);
+  pdfDropZone.addEventListener('drop', handleDrop);
+}
